@@ -1,0 +1,141 @@
+/* Algemene reset en box-model fix */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Zorgt ervoor dat padding en border binnen de totale breedte/hoogte vallen */
+}
+
+/* Basisinstellingen voor de body */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  display: grid; /* Layout met grid: header, main, footer */
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh; /* Volledige hoogte van het scherm */
+}
+
+/* Navigatiebalk styling */
+nav {
+  display: flex;
+  justify-content: space-between; /* Items worden links en rechts uitgelijnd */
+  align-items: center;
+  background-color: #4336da; /* Donkerblauwe kleur */
+  color: white;
+  padding: 1rem 2rem;
+}
+
+/* Navigatie-afbeelding styling (logo of profielfoto) */
+nav img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Ronde afbeelding */
+  object-fit: cover; /* Zorgt dat de afbeelding mooi gevuld blijft */
+}
+
+/* Stijl van het logo (de tekstlink naast de afbeelding) */
+nav #logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+/* Navigatielijst (de knoppen) */
+nav ul {
+  list-style: none; /* Verwijdert de standaard opsommingstekens */
+  display: flex;
+  gap: 1rem; /* Ruimte tussen de knoppen */
+}
+
+/* Knoppen in de navigatiebalk */
+.nav-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Hover-effect voor navigatieknoppen */
+.nav-button:hover {
+  background: #ffe600; /* Geel bij hover */
+}
+
+/* Hoofdinhoud */
+main {
+  display: grid;
+  grid-template-columns: 1fr; /* Één kolom op desktop */
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto; /* Centreert main */
+}
+
+/* Standaard verberg de sections */
+.content-section {
+  display: none;
+}
+
+/* Toon alleen de actieve section */
+.content-section.active {
+  display: block;
+}
+
+/* Voettekst styling */
+footer {
+  background-color: #0048ff;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* Media query voor schermen kleiner dan 768px */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Navigatie verticaal stapelen */
+    align-items: center;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  footer {
+    position: relative;
+  }
+}
+
+/* Styling voor afbeeldingen in 'Technieken & Voorbeelden' */
+#technieken-en-voorbeelden img {
+  width: 450px;
+  height: auto;
+  max-width: 100%; /* Zorgt dat het op mobiel niet breder dan scherm wordt */
+  border-radius: 8px; /* Ronde hoeken */
+}
+
+/* Extra media query voor kleinere mobiele apparaten */
+@media (max-width: 767px) {
+  label {
+    display: block;
+    color: white;
+  }
+
+  ul {
+    max-height: 0; /* Verberg menu standaard */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  input:checked ~ ul {
+    max-height: 500px; /* Toon menu wanneer checkbox actief is */
+  }
+
+  /* Styling voor de menu-toggle-hamburger, momenteel leeg */
+  label::before {
+    content: "";
+  }
+}

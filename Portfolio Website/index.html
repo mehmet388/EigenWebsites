@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta name="description" content="Dit is mijn portfolio website waar ik mijn projecten en vaardigheden laat zien.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.scss">
+  <script src="apps.js"></script>
+</head>
+<body>
+
+  <!-- Navigatiebalk met aria-label voor toegankelijkheid -->
+  <nav aria-label="Hoofdmenu">
+    <!-- Logo of afbeelding -->
+    <img src="img/Schermafbeelding 2025-02-18 152150.png" alt="">
+    
+    <!-- Naam of titel als logo -->
+    <a href="#" id="logo">Profiel</a>
+    
+    <!-- Menu-toggle checkbox voor mobiel menu -->
+    <input type="checkbox" id="menu-toggle" />
+    <!-- Hamburger icoon voor mobiel menu -->
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    
+    <!-- Navigatielinks -->
+    <ul>
+      <li><button class="nav-button" data-section="home">Home</button></li>
+      <li><button class="nav-button" data-section="opleiding-en-ervaring">Opleiding & Ervaring</button></li>
+      <li><button class="nav-button" data-section="technieken-en-voorbeelden">Technieken & Voorbeelden</button></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Sectie 1: Introductie -->
+    <section id="home" class="content-section active">
+      <article>
+        <header>
+          <h1>Wie ben ik?</h1>
+          <p>Ik ben Mehmet Ahmed. Ik ben 17 jaar oud. Zit momenteel op het Techniekcollege Rotterdam MBO4 1ste jaar ICT Software Developer.
+            Ik zit op voetbal. Buiten school en voetbal, werk ik veel en ga ik best vaak op bezoek.
+          </p>
+        
+          <h2>Kennis & vaardigheden</h2>
+          <p>
+            <!-- Opmaken van vaardigheden in lijstvorm zou netter zijn -->
+            basisvaardigheden:
+            HTML & CSS, JavaScript,
+            PHP & MySQL,
+            Variabelen en datatypes,
+            If-statements,
+            Loops en Functies,
+            Scrum,
+            GitHub
+          </p>
+        </header>
+      </article>
+    </section>
+
+    <!-- Sectie 2: Opleiding en Werkervaring -->
+    <section id="opleiding-en-ervaring" class="content-section">
+      <article>
+        <header>
+          <h1>Opleiding</h1>
+          <p>
+            <!-- Overzicht van onderwerpen binnen de opleiding -->
+            Tijdens de opleiding krijg je te maken met verschillende onderwerpen, zoals:
+
+            Programmeren – Je leert verschillende programmeertalen zoals HTML, CSS, JavaScript en PHP.
+            Databases – Werken met databases zoals MySQL.
+            Software Ontwikkeling – Je leert over frontend en backend development, frameworks en tools.
+            Scrum – Je leert werken in een softwareontwikkelteam met Scrum.
+            Stage & Projecten – Je doet praktijkervaring op bij bedrijven en werkt aan echte softwareprojecten.
+          </p>
+
+          <h2>Werkervaring</h2>
+          <p>
+            <!-- Praktijkervaring van student -->
+            Mijn Werkervaring waar ik allemaal heb gewerkt. Ik werk al bijna 3 jaar bij de Action, ik doe daar kassa en vullen.
+            Buiten Action heb ik nergens anders gewerkt, maar wel stage gelopen bij een voetbalvereniging.
+            Wat ik daar heb gedaan is training gegeven aan jonge spelers zoals onder9 - onder11 -13 etc. en uiteindelijk had ik besloten om verder te gaan dus ik ben nu al maanden een assistent-trainer bij een voetbalvereniging.
+          </p>
+        </header>
+      </article>
+    </section>
+
+    <!-- Sectie 3: Technieken en Voorbeelden -->
+    <section id="technieken-en-voorbeelden" class="content-section">
+      <article>
+        <header>
+          <h1>Technieken & Voorbeelden</h1>
+          <p>
+            <!-- Overzicht van gebruikte technieken -->
+            HTML, CSS, Flexbox, JavaScript, Responsive design, Navigatiebalk met knoppen, Afbeeldingen & content-sections.
+          </p>
+          <!-- Screenshots of voorbeelden -->
+          <img src="img/Schermafbeelding 2025-03-07 103605.png" alt="">
+          <img src="img/Schermafbeelding 2025-03-07 103908.png" alt="">
+        </header>
+      </article>
+    </section>
+  </main>
+
+  <!-- Footer met contactlinks -->
+  <footer>
+    <p>
+      Contactgegevens | Mehmetcanahmed10@gmail.com |
+      <a href="https://www.linkedin.com/in/mehmet-ahmed-315760354/" target="_blank">LinkedIn</a> | 
+      <a href="https://github.com/mehmet388" target="_blank">GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>

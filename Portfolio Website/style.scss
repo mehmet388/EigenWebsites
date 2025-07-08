@@ -1,0 +1,143 @@
+// 1. Gebruik van variabelen
+$primary-color: #3498db;
+$secondary-color: #4336da;;
+$text-color: #333;
+$spacing: 10px;
+$border-radius: 5px;
+
+// 2. Gebruik van verschillende variabeltypes
+$colors: (primary: #3498db, secondary: #4336da;, danger: white);
+$font-stack: "Arial, sans-serif";
+$max-width: 1200px;
+
+// 3. Gebruik van een namespace
+%global-styles {
+  font-family: $font-stack;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+}
+
+// 4. Gebruik van @import
+@import "mixins";
+
+body {
+  @extend %global-styles;
+  background-color: #f4f4f4;
+}
+
+// 5. Geneste elementen
+nav {
+  background: $primary-color;
+  padding: $spacing;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ul {
+    list-style: none;
+    display: flex;
+    li {
+      margin: 0 $spacing;
+      .nav-button {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// 6. Gebruik van & op 3 manieren
+.nav {
+  &-bar {
+    background-color: $primary-color;
+  }
+
+  &__item {
+    color: white;
+  }
+
+  &.active {
+    background-color: darken($primary-color, 20%);
+  }
+}
+
+// 7. Gebruik van @media
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+}
+
+// 8. Gebruik van @extend
+%button-styles {
+  padding: $spacing;
+  border: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  @extend %button-styles;
+  background-color: map-get($colors, primary);
+}
+
+.button-danger {
+  @extend %button-styles;
+  background-color: map-get($colors, danger);
+}
+
+// 9. Gebruik van operations
+.box {
+  width: $spacing * 5;
+  height: $spacing * 5;
+}
+
+// 10. Gebruik van @if, @elseif, en @else
+$theme: dark;
+
+body {
+  @if $theme == dark {
+    background-color: black;
+    color: white;
+  } @elseif $theme == light {
+    background-color: white;
+    color: black;
+  } @else {
+    background-color: gray;
+    color: white;
+  }
+}
+
+// 11. Gebruik van @for
+@for $i from 1 through 5 {
+  .column-#{$i} {
+    width: 100% / $i;
+  }
+}
+
+// 12. Gebruik van @each
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+// 13. Gebruik van @while
+$i: 1;
+@while $i <= 5 {
+  .border-#{$i} {
+    border-width: $i * 2px;
+  }
+  $i: $i + 1;
+}
