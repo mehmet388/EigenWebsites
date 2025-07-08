@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ziraat Bank</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigatiebalk -->
+  <nav>
+    <div id="logo">
+      <img src="img/Ziraat-Bankasi-Emblem.png" alt="Ziraat Bank Logo">
+      <span>Ziraat bank</span>
+    </div>
+    <ul>
+      <li><button class="nav-button" data-section="home">Home</button></li>
+      <li><button class="nav-button" data-section="transactie">transactie</button></li>
+      <li><button class="nav-button" data-section="betaalrekening">Betaalrekening</button></li>
+      <li><button class="nav-button" data-section="omschrijving">Omschrijving</button></li>
+      <li><button class="nav-button" data-section="Beleggingen">Beleggingen</button></li>
+      <li><button class="nav-button" data-section="Crypto">Crypto</button></li>
+    </ul>
+  </nav>
+
+  <!-- Hoofdinhoud -->
+  <main>
+    <section id="home" class="content-section active">
+      <h1>Home</h1>
+      <p>Welkom op onze homepagina.</p>
+    </section>
+
+    <section id="transactie" class="content-section">
+      <div class="container">
+        <h1>Transactiegeschiedenis</h1>
+        <div class="filters">
+          <label for="type-filter">Filter op type:</label>
+          <select id="type-filter">
+            <option value="all">Alle</option>
+            <option value="inkomend">Inkomend</option>
+            <option value="uitgaand">Uitgaand</option>
+          </select>
+    
+          <label for="date-filter">Filter op datum:</label>
+          <input type="date" id="date-filter">
+          <button onclick="applyFilters()">Filteren</button>
+        </div>
+        <ul id="transaction-list"></ul>
+      </div>
+    </section>
+
+   <!-- Betaalrekening Sectie -->
+<section id="betaalrekening" class="content-section">
+  <h1>Betaalrekening</h1>
+  <p>Bekijk hier uw betaalrekeninginformatie.</p>
+  <div class="rekening">
+    <div class="rekening-item">
+      <span>Betaalrekening</span>
+      <span>€130.00</span>
+    </div>
+    <div class="rekening-item">
+      <span>Spaarrekening</span>
+      <span>€2300.50</span>
+    </div>
+  </div>
+  <button id="new-account-btn-betaling">Nieuwe Rekening Aanmaken</button>
+</section>
+
+<!-- Omschrijving Sectie -->
+<section id="omschrijving" class="content-section">
+  <h1>Omschrijving</h1>
+  <div class="rekening">
+    <div class="rekening-item">
+      <span>Van rekening:</span>
+      <span>€2300.50</span>
+    </div>
+    <div class="rekening-item">
+      <span>Naar rekening:</span>
+      <span>€150.00</span>
+    </div>
+    <div class="rekening-item">
+      <span>Bedrag:</span>
+      <span>€150.00</span>
+    </div>
+  </div>
+  <button id="new-account-btn-omschrijving">Nieuwe Rekening Aanmaken</button>
+</section>
+
+<!-- Modal voor Nieuwe Rekening -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2>Nieuwe Rekening Aanmaken</h2>
+    <form id="new-account-form">
+      <label for="account-name">Rekening Naam:</label>
+      <input type="text" id="account-name" placeholder="Bijv. Spaarrekening" required>
+      <label for="initial-amount">Startbedrag (€):</label>
+      <input type="number" id="initial-amount" placeholder="Bijv. 0.00" min="0" required>
+      <button type="submit">Rekening Aanmaken</button>
+    </form>
+  </div>
+</div>
+
+<section id="Beleggingen" class="content-section">
+  <h1>Beleggingen</h1>
+  <div class="crypto-container">
+    <p>Beschikbaar saldo: <span id="saldo">€760.00</span></p>
+    <label for="categorie">Kies een categorie:</label>
+    <select id="categorie">
+      <option value="aandelen">Aandelen</option>
+      <option value="crypto">Crypto</option>
+    </select>
+
+    <label for="product">Kies een product:</label>
+    <select id="product">
+      <option value="TechCorp">Goud</option>
+      <option value="BitCoin">Diamanten</option>
+      <option value="BitCoin">geen</option>
+    </select>
+
+    <label for="product">Kies een product:</label>
+    <select id="product">
+      <option value="TechCorp">TechCorp</option>
+      <option value="BitCoin">BitCoin</option>
+      <option value="BitCoin">geen</option>
+    </select>
+
+    <p>Huidige prijs: <span id="huidige-prijs">€120.00</span></p>
+    <p>In bezit: <span id="in-bezit">2</span> eenheden</p>
+
+    <label for="bedrag">Bedrag:</label>
+    <input type="number" id="bedrag" placeholder="Bijv. 240">
+
+    <button id="koop-btn">Kopen</button>
+    <button id="verkoop-btn">Verkopen</button>
+    <p id="investering-status"></p>
+  </div>
+</section>
+
+<section id="Crypto" class="content-section">
+<div class="container">
+  <h1>Cryptovaluta Overzicht</h1>
+  <div class="crypto-balances">
+    <p>Bitcoin: €<span id="bitcoin-balance">0.00</span> (90000 per eenheid)</p>
+    <p>Ethereum: €<span id="ethereum-balance">0.00</span> (4800 per eenheid)</p>
+    <p>Litecoin: €<span id="litecoin-balance">0.00</span> (250 per eenheid)</p>
+  </div>
+  <div class="transaction-form">
+    <label for="crypto-select">Kies een cryptovaluta:</label>
+    <select id="crypto-select">
+      <option value="bitcoin">Bitcoin</option>
+      <option value="ethereum">Ethereum</option>
+      <option value="litecoin">Litecoin</option>
+    </select>
+    <label for="amount">Bedrag (in €):</label>
+    <input type="number" id="amount" min="0" value="100">
+    <button id="buy-button">Kopen</button>
+    <button id="sell-button">Verkopen</button>
+  </div>
+</section>
+    <!-- Loginformulier -->
+    <form id="login-form">
+      <label for="username">Gebruikersnaam:</label>
+      <input type="text" id="username" name="username" required>
+      
+      <label for="password">Wachtwoord:</label>
+      <input type="password" id="password" name="password" required>
+      <input type="checkbox" id="show-password"> Toon wachtwoord
+      
+      <label for="redirect">Ga naar:</label>
+      <select id="redirect" name="redirect">
+        <option value="home">Home</option>
+        <option value="account">Account</option>
+        <option value="betaalrekening">Betaalrekening</option>
+        <option value="omschrijving">Omschrijving</option>
+        <option value="transactie">transactie</option>
+        <option value="Crypto">Crypto</option>
+        <option value="Beleggingen">Beleggingen</option>
+      </select>
+      
+      
+      <button type="submit">Inloggen</button>
+    </form>
+    <p id="login-error" class="error-message"></p>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Ziraat Bank</p>
+  </footer>
+
+  <script src="apps.js"></script>
+</body>
+</html>
