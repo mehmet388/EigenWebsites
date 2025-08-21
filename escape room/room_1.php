@@ -1,13 +1,13 @@
 <?php
-// ✅ Verbind met database
+//  Verbind met database
 require_once('./dbcon.php');
 
 try {
-  // ✅ Haal alle vragen op voor roomId = 1
+  //  Haal alle vragen op voor roomId = 1
   $stmt = $db_connection->query("SELECT * FROM questions WHERE roomId = 1");
   $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  // ✅ Stop script als er een fout is bij de database
+  //  Stop script als er een fout is bij de database
   die("Databasefout: " . $e->getMessage());
 }
 ?>
@@ -19,7 +19,7 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Escape Room 1</title>
   <style>
-    /* ✅ Algemene opmaak en achtergrond */
+    /*  Algemene opmaak en achtergrond */
     body {
       margin: 0;
       padding: 0;
@@ -31,7 +31,7 @@ try {
       overflow: hidden;
     }
 
-    /* ✅ Timer stijl linksboven */
+    /*  Timer stijl linksboven */
     #timer {
       position: absolute;
       top: 20px;
@@ -43,7 +43,7 @@ try {
       z-index: 100;
     }
 
-    /* ✅ Instructietekst bovenaan */
+    /*  Instructietekst bovenaan */
     h2 {
       position: absolute;
       top: 10%;
@@ -60,7 +60,7 @@ try {
       z-index: 90;
     }
 
-    /* ✅ Verborgen boxen die klikbaar zijn */
+    /*  Verborgen boxen die klikbaar zijn */
     .hidden-box {
       position: absolute;
       opacity: 0;
@@ -70,7 +70,7 @@ try {
       z-index: 50;
     }
 
-    /* ✅ Box zichtbaar na klik */
+    /*  Box zichtbaar na klik */
     .hidden-box.revealed {
       opacity: 10;
       background-color: #fff;
@@ -82,7 +82,7 @@ try {
       color: #000;
     }
 
-    /* ✅ Donkere overlay bij vraag */
+    /*  Donkere overlay bij vraag */
     .overlay {
       display: none;
       position: fixed;
@@ -92,7 +92,7 @@ try {
       z-index: 100;
     }
 
-    /* ✅ Modal (vraag + inputveld) */
+    /*  Modal (vraag + inputveld) */
     .modal {
       display: none;
       position: fixed;
@@ -129,7 +129,7 @@ try {
       background-color: #9cb230;
     }
 
-    /* ✅ Winnende scherm na alle goede antwoorden */
+    /*  Winnende scherm na alle goede antwoorden */
     #winScreen {
       display: none;
       position: fixed;
@@ -164,14 +164,14 @@ try {
 
 <body>
 
-<!-- ✅ Timer zichtbaar linksboven -->
+<!-- Timer zichtbaar linksboven -->
 <div id="timer">⏱️ Tijd over: 60s</div>
 
-<!-- ✅ Instructietekst boven de kaart -->
+<!-- Instructietekst boven de kaart -->
 <div class="center-box">
   <h2>Raad de hoofdsteden van de landen</h2>
 
-  <!-- ✅ Dynamisch gegenereerde boxen uit database -->
+  <!--  Dynamisch gegenereerde boxen uit database -->
   <div class="container">
     <?php foreach ($questions as $index => $question) : ?>
       <div class="hidden-box box<?php echo $index + 1; ?>"
@@ -185,7 +185,7 @@ try {
   </div>
 </div>
 
-<!-- ✅ Vraag overlay + modaal -->
+<!--  Vraag overlay + modaal -->
 <section class="overlay" id="overlay" onclick="closeModal()"></section>
 <section class="modal" id="modal">
   <p id="question"></p>
@@ -194,24 +194,24 @@ try {
   <p id="feedback"></p>
 </section>
 
-<!-- ✅ Win scherm -->
+<!--  Win scherm -->
 <div id="winScreen">
   🎉 Je hebt Room 1 verslagen! 🎉<br />
   Je gaat nu door naar Room 2.<br />
   <button id="continueBtn">Doorgaan</button>
 </div>
 
-<!-- ✅ JavaScript spelmechaniek -->
+<!--  JavaScript spelmechaniek -->
 <script>
-  let correctAnswers = 0;                 // ✅ Telt juiste antwoorden
-  let answeredBoxes = new Set();          // ✅ Voorkomt dubbele antwoorden
-  let timeLeft = 60;                      // ✅ Starttijd in seconden
-  const totalQuestions = <?php echo count($questions); ?>;  // ✅ Totaal aantal vragen
+  let correctAnswers = 0;                 //  Telt juiste antwoorden
+  let answeredBoxes = new Set();          //  Voorkomt dubbele antwoorden
+  let timeLeft = 60;                      //  Starttijd in seconden
+  const totalQuestions = <?php echo count($questions); ?>;  //  Totaal aantal vragen
 
-  // ✅ Timer die elke seconde aftelt
+  //  Timer die elke seconde aftelt
   function updateTimer() {
     if (timeLeft <= 0) {
-      window.location.href = "verliesscherm.php"; // ✅ Tijd op = verloren
+      window.location.href = "verliesscherm.php"; // Tijd op = verloren
       return;
     }
     document.getElementById("timer").innerText = "⏱️ Tijd over: " + timeLeft + "s";
@@ -219,7 +219,7 @@ try {
   }
   setInterval(updateTimer, 1000);
 
-  // ✅ Toon vraagmodaal bij klikken op box
+  //  Toon vraagmodaal bij klikken op box
   function revealBox(element, index) {
     if (!element.classList.contains('revealed')) {
       element.classList.add('revealed');
@@ -227,7 +227,7 @@ try {
     openModal(index);
   }
 
-  // ✅ Modal openen met vraag
+  //  Modal openen met vraag
   function openModal(index) {
     const box = document.querySelector(`.box${index + 1}`);
     const questionText = box.dataset.question;
@@ -243,13 +243,13 @@ try {
     document.getElementById('modal').dataset.boxIndex = index;
   }
 
-  // ✅ Sluit de modal
+  //  Sluit de modal
   function closeModal() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('modal').style.display = 'none';
   }
 
-  // ✅ Controleer antwoord
+  //  Controleer antwoord
   function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
     const correctAnswer = document.getElementById('modal').dataset.correctAnswer.toLowerCase();
@@ -257,25 +257,25 @@ try {
     const feedback = document.getElementById('feedback');
 
     if (userAnswer === correctAnswer) {
-      // ✅ Juist antwoord
+      //  Juist antwoord
       if (!answeredBoxes.has(boxIndex)) {
         correctAnswers++;
         answeredBoxes.add(boxIndex);
       }
 
-      feedback.textContent = '✅ Correct!';
+      feedback.textContent = ' Correct!';
       feedback.style.color = 'green';
 
       setTimeout(() => {
         closeModal();
 
-        // ✅ Check of spel voltooid is
+        //  Check of spel voltooid is
         if (correctAnswers === totalQuestions) {
           showWinScreen();
         }
       }, 1000);
     } else {
-      // ✅ Fout antwoord → verlies
+      //  Fout antwoord → verlies
       closeModal();
       showLossScreen();
       setTimeout(() => {
@@ -284,12 +284,12 @@ try {
     }
   }
 
-  // ✅ Toon win scherm
+  //  Toon win scherm
   function showWinScreen() {
     document.getElementById('winScreen').style.display = 'block';
   }
 
-  // ✅ Toon verlies overlay
+  //  Toon verlies overlay
   function showLossScreen() {
     let lossOverlay = document.createElement('div');
     lossOverlay.id = 'lossScreen';
@@ -307,7 +307,7 @@ try {
     document.body.appendChild(lossOverlay);
   }
 
-  // ✅ Ga naar Room 2 bij klik op knop
+  //  Ga naar Room 2 bij klik op knop
   document.getElementById('continueBtn').addEventListener('click', () => {
     window.location.href = 'room_2.php';
   });

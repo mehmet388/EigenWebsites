@@ -2,13 +2,13 @@
 session_start();
 require 'dbcon.php';
 
-// ✅ Verplicht inloggen
+//  Verplicht inloggen
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
 }
 
-// ✅ Uitloggen
+//  Uitloggen
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     session_unset();
     session_destroy();
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     exit;
 }
 
-// ✅ Haal top 5 scores op met start- en eindtijd
+//  Haal top 5 scores op met start- en eindtijd
 $stmt = $db_connection->prepare("
     SELECT t.naam, s.starttijd, s.eindtijd 
     FROM scores s
@@ -26,7 +26,7 @@ $stmt = $db_connection->prepare("
 $stmt->execute();
 $topScores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ✅ Haal eigen score op (laatste poging)
+//  Haal eigen score op (laatste poging)
 $teamnaam = $_SESSION['user'];
 $stmt2 = $db_connection->prepare("
     SELECT s.starttijd, s.eindtijd 
@@ -135,9 +135,9 @@ $eigenScore = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 <body>
 
-<!-- ✅ Welkomsttekst + uitlogknop + adminlink -->
+<!--  Welkomsttekst + uitlogknop + adminlink -->
 <div class="welcome">
-  👋 Welkom, <strong><?= htmlspecialchars($_SESSION['user']) ?></strong>!
+   Welkom, <strong><?= htmlspecialchars($_SESSION['user']) ?></strong>!
   <form method="post" class="logout" style="display:inline;">
     <button type="submit" name="logout">Uitloggen</button>
   </form>
@@ -167,7 +167,7 @@ $eigenScore = $stmt2->fetch(PDO::FETCH_ASSOC);
   <a href="room_1.php" class="start-button">Start demonstratie van kamer 1</a>
 </div>
 
-<!-- ✅ Eigen score tonen -->
+<!--  Eigen score tonen -->
 <?php if (!empty($eigenScore) && !empty($eigenScore['starttijd']) && !empty($eigenScore['eindtijd'])): ?>
   <?php 
     $start = strtotime($eigenScore['starttijd']);
@@ -180,7 +180,7 @@ $eigenScore = $stmt2->fetch(PDO::FETCH_ASSOC);
   </div>
 <?php endif; ?>
 
-<!-- ✅ Leaderboard -->
+<!--  Leaderboard -->
 <div class="leaderboard">
   <h2>🏆 Leaderboard – Snelste Eindtijden</h2>
   <table>

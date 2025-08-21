@@ -1,12 +1,12 @@
 <?php
 require_once('./dbcon.php');
 
-// ✅ Haal alle vragen op voor roomId 2 uit de database
+//  Haal alle vragen op voor roomId 2 uit de database
 try {
   $stmt = $db_connection->query("SELECT * FROM questions WHERE roomId = 2");
   $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  // ✅ Foutmelding tonen als er iets misgaat met de database
+  //  Foutmelding tonen als er iets misgaat met de database
   die("Databasefout: " . $e->getMessage());
 }
 ?>
@@ -18,7 +18,7 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Escape Room 2</title>
   <style>
-    /* ✅ Algemene body styling, achtergrond afbeelding en font */
+    /*  Algemene body styling, achtergrond afbeelding en font */
     body {
       margin: 0;
       padding: 0;
@@ -30,7 +30,7 @@ try {
       overflow: hidden;
     }
 
-    /* ✅ Timer styling: rood, zichtbaar linksboven */
+    /*  Timer styling: rood, zichtbaar linksboven */
     #timer {
       position: absolute;
       top: 20px;
@@ -42,7 +42,7 @@ try {
       z-index: 100;
     }
 
-    /* ✅ Titel bovenin midden met achtergrond en stijl */
+    /*  Titel bovenin midden met achtergrond en stijl */
     h2 {
       position: absolute;
       top: 10%;
@@ -59,7 +59,7 @@ try {
       z-index: 90;
     }
 
-    /* ✅ Stijl voor de verborgen boxen */
+    /*  Stijl voor de verborgen boxen */
     .hidden-box {
       position: absolute;
       opacity: 0;
@@ -69,7 +69,7 @@ try {
       z-index: 50;
     }
 
-    /* ✅ Stijl voor onthulde boxen: zichtbaar en met kader */
+    /*  Stijl voor onthulde boxen: zichtbaar en met kader */
     .hidden-box.revealed {
       opacity: 10;
       background-color: #fff;
@@ -81,7 +81,7 @@ try {
       color: #000;
     }
 
-    /* ✅ Overlay achter modal: half-transparant zwart */
+    /*  Overlay achter modal: half-transparant zwart */
     .overlay {
       display: none;
       position: fixed;
@@ -91,7 +91,7 @@ try {
       z-index: 100;
     }
 
-    /* ✅ Modal venster styling */
+    /*  Modal venster styling */
     .modal {
       display: none;
       position: fixed;
@@ -107,7 +107,7 @@ try {
       text-align: center;
     }
 
-    /* ✅ Input veld in modal */
+    /*  Input veld in modal */
     .modal input {
       width: 90%;
       padding: 8px;
@@ -115,7 +115,7 @@ try {
       margin-bottom: 10px;
     }
 
-    /* ✅ Verzenden knop in modal */
+    /*  Verzenden knop in modal */
     .modal button {
       padding: 10px 20px;
       background-color: #b7d539;
@@ -129,7 +129,7 @@ try {
       background-color: #9cb230;
     }
 
-    /* ✅ Win scherm styling */
+    /*  Win scherm styling */
     #winScreen {
       display: none;
       position: fixed;
@@ -160,17 +160,17 @@ try {
   </style>
 </head>
 <body>
-  <!-- ✅ Timer zichtbaar bovenin links -->
+  <!--  Timer zichtbaar bovenin links -->
   <div id="timer">⏱️ Tijd over: 55s</div>
 
   <div class="center-box">
     <h2>Raad de hoofdsteden van de landen<br>room 2 succes!!!</h2>
     <div class="container">
 
-    <!-- ✅ Genereer boxen met willekeurige posities -->
+    <!--  Genereer boxen met willekeurige posities -->
     <?php foreach ($questions as $index => $question) : ?>
       <?php
-        // ✅ Willekeurige top en left positie tussen 10% en 80%
+        //  Willekeurige top en left positie tussen 10% en 80%
         $top = rand(10, 80);
         $left = rand(10, 80);
       ?>
@@ -183,7 +183,7 @@ try {
       </div>
     <?php endforeach; ?>
 
-    <!-- ✅ Overlay en modal voor vragen -->
+    <!--  Overlay en modal voor vragen -->
     <section class="overlay" id="overlay" onclick="closeModal()"></section>
     <section class="modal" id="modal">
       <p id="question"></p>
@@ -192,7 +192,7 @@ try {
       <p id="feedback"></p>
     </section>
 
-    <!-- ✅ Win scherm -->
+    <!--  Win scherm -->
     <div id="winScreen">
       🎉 Gefeliciteerd je hebt het spel gewonnen je bent een kanjer 🎉<br />
       Je gaat nu terug naar homepagina.<br />
@@ -200,16 +200,16 @@ try {
     </div>
 
 <script>
-  // ✅ Teller van correcte antwoorden
+  //  Teller van correcte antwoorden
   let correctAnswers = 0;
-  // ✅ Houd bij welke boxen al goed beantwoord zijn
+  //  Houd bij welke boxen al goed beantwoord zijn
   let answeredBoxes = new Set();
-  // ✅ Starttijd van de timer in seconden
+  //  Starttijd van de timer in seconden
   let timeLeft = 55;
-  // ✅ Totaal aantal vragen
+  //  Totaal aantal vragen
   const totalQuestions = <?= count($questions); ?>;
 
-  // ✅ Update timer elke seconde en ga naar verliespagina als tijd op is
+  //  Update timer elke seconde en ga naar verliespagina als tijd op is
   function updateTimer() {
     if (timeLeft <= 0) {
       window.location.href = "verliesscherm.php";
@@ -220,7 +220,7 @@ try {
   }
   setInterval(updateTimer, 1000);
 
-  // ✅ Toon box visueel als onthuld en open modal met vraag
+  //  Toon box visueel als onthuld en open modal met vraag
   function revealBox(element, index) {
     if (!element.classList.contains('revealed')) {
       element.classList.add('revealed');
@@ -228,7 +228,7 @@ try {
     openModal(index);
   }
 
-  // ✅ Open modal met de vraag van de gekozen box
+  //  Open modal met de vraag van de gekozen box
   function openModal(index) {
     const box = document.querySelector(`.box${index + 1}`);
     const questionText = box.dataset.question;
@@ -244,13 +244,13 @@ try {
     document.getElementById('modal').dataset.boxIndex = index;
   }
 
-  // ✅ Sluit de modal en overlay
+  //  Sluit de modal en overlay
   function closeModal() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('modal').style.display = 'none';
   }
 
-  // ✅ Controleer antwoord op correctheid en update score
+  //  Controleer antwoord op correctheid en update score
   function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
     const correctAnswer = document.getElementById('modal').dataset.correctAnswer.toLowerCase();
@@ -259,14 +259,14 @@ try {
 
     if (userAnswer === correctAnswer) {
       if (!answeredBoxes.has(boxIndex)) {
-        correctAnswers++;           // ✅ Verhoog score als box nog niet beantwoord was
-        answeredBoxes.add(boxIndex); // ✅ Markeer box als beantwoord
+        correctAnswers++;           //  Verhoog score als box nog niet beantwoord was
+        answeredBoxes.add(boxIndex); //  Markeer box als beantwoord
       }
 
-      feedback.textContent = '✅ Correct!';
+      feedback.textContent = ' Correct!';
       feedback.style.color = 'green';
 
-      // ✅ Sluit modal en toon win scherm als alle vragen goed zijn
+      //  Sluit modal en toon win scherm als alle vragen goed zijn
       setTimeout(() => {
         closeModal();
 
@@ -275,7 +275,7 @@ try {
         }
       }, 1000);
     } else {
-      // ✅ Bij fout antwoord: sluit modal, toon verlies bericht en ga terug naar start
+      //  Bij fout antwoord: sluit modal, toon verlies bericht en ga terug naar start
       closeModal();
       showLossScreen();
       setTimeout(() => {
@@ -284,12 +284,12 @@ try {
     }
   }
 
-  // ✅ Toon het win scherm
+  //  Toon het win scherm
   function showWinScreen() {
     document.getElementById('winScreen').style.display = 'block';
   }
 
-  // ✅ Maak en toon een overlay met verliesbericht
+  //  Maak en toon een overlay met verliesbericht
   function showLossScreen() {
     let lossOverlay = document.createElement('div');
     lossOverlay.id = 'lossScreen';
@@ -307,7 +307,7 @@ try {
     document.body.appendChild(lossOverlay);
   }
 
-  // ✅ Eventlistener voor knop in win scherm: terug naar homepagina
+  //  Eventlistener voor knop in win scherm: terug naar homepagina
   document.getElementById('continueBtn').addEventListener('click', () => {
     window.location.href = 'index.php';
   });
